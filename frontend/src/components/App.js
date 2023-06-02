@@ -1,17 +1,19 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Header from "./Header";
+import { createRoot } from "react-dom/client";
 
 const App = () => {
   return (
-    <div className="flex h-screen text-3xl md:text-2xl">
-      <div className="m-auto text-center">
-      Made with ❤️ dwda
-    <a href="https://docs.djangoproject.com/en/3.2/" className="font-bold text-error font-sans" target="_blank"> Django</a>,
-        <a href="https://reactjs.org/docs/getting-started.html" className="font-bold text-prim" target="_blank"> React</a> and 
-        <a href="https://tailwindcss.com/docs" className="font-handwrite text-prim" target="_blank"> Tailwisssdnddwada CSS</a>
-      </div>
+    <div className="h-screen bg-prim">
+      <Header />
+      <p className="font-bold text-error">Det här är din sida</p>
+      <h1 className="text-2xl font-header ">FOWDWO dwkoad</h1>
+      <h1 className="text-2xl font-ingress">FOWDWO dwkoad</h1>
+      <h1 className="text-2xl font-body font-black">TEST BODY</h1>
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const container = document.getElementById("app");
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App />);
