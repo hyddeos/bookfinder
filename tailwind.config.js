@@ -12,10 +12,19 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      django: '#092e20',
-      react: '#61DBFB',
-      tailwind: '#00b4b6'
-    }
+      //Main
+      'light': '#feffff',
+      'prim': '#61DBFB',
+      'sec': '#00b4b6',
+      'acc:': '#e06250',
+      //Extras
+      'error':  '#EC6A52',
+      'succes': '#70C09E',
+    },
+    fontFamily: {
+      'sans': ['"Noto Sans JP"'],
+      'serif': ['"Noto Serif"'],
+    },    
   },
   variants: {
     extend: {},

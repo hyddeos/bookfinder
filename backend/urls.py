@@ -27,4 +27,5 @@ load_dotenv()
 urlpatterns = [
     path('', include('frontend.urls')),
     path(os.environ.get('DJANGO_ADMIN_URL'), admin.site.urls),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
