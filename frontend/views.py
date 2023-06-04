@@ -4,4 +4,11 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'frontend/index.html')
+    print("hejsan")
+    return render(
+        request,
+        "frontend/index.html",
+        {
+            "test": "hesjsan",
+        },
+    )
