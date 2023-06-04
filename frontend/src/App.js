@@ -3,7 +3,8 @@ import Header from "./components/Header";
 import { createRoot } from "react-dom/client";
 
 const App = () => {
-  const test = document.getElementById("app").getAttribute("data-test");
+  const books = document.getElementById("app").getAttribute("books");
+  console.log("books", books);
 
   return (
     <div className="h-screen bg-prim">
@@ -12,7 +13,10 @@ const App = () => {
       <h1 className="text-2xl font-header ">FOWDWO dwkoad</h1>
       <h1 className="text-2xl font-ingress">FOWDWO dwkoad</h1>
       <h1 className="text-2xl font-body font-black">TESTdwad</h1>
-      <p>dddws {test} </p>
+      <p>dddws {books} </p>
+      <a href="/updatebooks">
+        <button className="bg-acc h-6 w-10">UPDATE BOOKS</button>
+      </a>
     </div>
   );
 };

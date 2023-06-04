@@ -667,6 +667,10 @@ video {
   height: 1rem;
 }
 
+.h-6{
+  height: 1.5rem;
+}
+
 .h-8{
   height: 2rem;
 }
@@ -685,6 +689,10 @@ video {
 
 .w-8{
   width: 2rem;
+}
+
+.w-10{
+  width: 2.5rem;
 }
 
 .w-full{
@@ -779,6 +787,11 @@ video {
 .bg-prim{
   --tw-bg-opacity: 1;
   background-color: rgba(143, 199, 183, var(--tw-bg-opacity));
+}
+
+.bg-acc{
+  --tw-bg-opacity: 1;
+  background-color: rgba(224, 98, 80, var(--tw-bg-opacity));
 }
 
 .fill-current{

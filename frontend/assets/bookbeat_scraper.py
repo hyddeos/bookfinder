@@ -1,36 +1,86 @@
-import urllib.parse
-import urllib.request
-from bs4 import BeautifulSoup
-
-import time
-import os.path
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from chromedriver_py import binary_path  # this will get you the path variable
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import json
+import requests
+import re
+from frontend.assets.url_regex import bookbeat_url_regex
 
 
 def get_books():
-    url = "https://www.bookbeat.se/kategori/fakta-46054?format=audiobook&language=Swedish&language=English&sortBy=publishdate&sortOrder=desc"
-    scrape_books(url)
+    urls = urls_to_scape()
+    books = []
+    for url in urls:
+        books.append(scape_books(url))
+
     return 0
 
 
-def scrape_books(url):
-    service_object = Service(binary_path)
-    driver = webdriver.Chrome(executable_path=binary_path)
-    # webbrowser.open(full_url)
-    # Use the appropriate WebDriver for your browser
-    driver.get(url)
-    WebDriverWait(driver, 10)  # Maximum wait time of 10 seconds
-    html_content = driver.page_source
-    soup = BeautifulSoup(html_content, "html.parser")
-    print("s", soup)
+def urls_to_scape():
+    urls = [
+        # psykologi-46061
+        "https://www.bookbeat.se/api/discovery/search/categories?category=61&format=audiobook&id=psykologi-46061&language=Swedish&language=English&offset=0&sortBy=publishdate&sortOrder=desc",
+    ]
+    return urls
 
-    cards = soup.findAll("div", class_=lambda x: x and x.startswith("card_base__"))
-    for card in cards:
-        print(card, end="\n" * 2)
 
-    driver.quit()
+def scape_books(url):
+    print("Updating books running")
+    books_links = []
+    total_books = 0
+    offset_counter = 0
+
+    # Gets links to all books in the category
+    response = requests.get(url)
+    if response.status_code == 200:
+        json_data = response.json()
+        total_books = json_data["count"]
+        for book in json_data["_embedded"]["books"]:
+            books_links.append(book["_links"]["self"]["href"])
+        offset_counter = +50
+    else:
+        print("Request failed with status code:", response.status_code)
+
+    while offset_counter < 10:  # change later to total_books
+        updated_url = bookbeat_url_regex(url, offset_counter)
+        response = requests.get(updated_url)
+        if response.status_code == 200:
+            json_data = response.json()
+            for book in json_data["_embedded"]["books"]:
+                books_links.append(book["_links"]["self"]["href"])
+            offset_counter = offset_counter + 50
+        else:
+            print("Request failed with status code:", response.status_code)
+
+    # Fetch data about every book from the book-link
+    books = []
+    min_length = 13000
+    unwanted_categories = ["Personlig utveckling", "Familjeliv & Relationer", "Hälsa"]
+    for book_url in books_links:
+        response = requests.get(book_url)
+        if response.status_code == 200:
+            json_data = response.json()
+            # check if book is long enough
+            if int(json_data["audiobooklength"]) > min_length:
+                # Filter away unwanted genres
+                for genre in json_data["genres"]:
+                    if genre["name"] in unwanted_categories:
+                        break
+                # Add book
+                books.append(
+                    {
+                        "source_id": json_data["id"],
+                        "title": json_data["title"],
+                        "author": json_data["author"],
+                        "url": json_data["shareurl"],
+                        "cover": json_data["cover"],
+                        "language": json_data["language"],
+                        "published": json_data["published"],
+                        "source_published": json_data["editions"][0][
+                            "bookBeatPublishDate"
+                        ],
+                        "genres": json_data["genres"],
+                        "publisher": json_data["editions"][0]["publisher"],
+                    }
+                )
+        else:
+            print("Request failed with status code:", response.status_code)
+
+    return books
