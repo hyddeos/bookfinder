@@ -18,6 +18,8 @@ def index(request):
 
 def update_books(request):
     books = get_books()
+    print("b", books)
     save_books(books)
+    print("--UPDATE DONE--")
     response = redirect("/")
     return response

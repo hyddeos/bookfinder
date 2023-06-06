@@ -10,7 +10,7 @@ def get_books():
     for url in urls:
         books.append(scape_books(url))
 
-    return 0
+    return books
 
 
 def urls_to_scape():
@@ -51,18 +51,31 @@ def scape_books(url):
 
     # Fetch data about every book from the book-link
     books = []
+    books_ignored = 0
     min_length = 13000
-    unwanted_categories = ["Personlig utveckling", "Familjeliv & Relationer", "Hälsa"]
+    unwanted_categories = [
+        "Personlig utveckling",
+        "Familjeliv & Relationer",
+        "Hälsa",
+        "Kropp & själ",
+    ]
     for book_url in books_links:
         response = requests.get(book_url)
         if response.status_code == 200:
             json_data = response.json()
             # check if book is long enough
             if int(json_data["audiobooklength"]) > min_length:
+                # get genres
+                genres = [genre["name"] for genre in json_data["genres"]]
                 # Filter away unwanted genres
-                for genre in json_data["genres"]:
-                    if genre["name"] in unwanted_categories:
+                unwanted_genre_found = False
+                for genre in genres:
+                    if genre in unwanted_categories:
+                        unwanted_genre_found = True
                         break
+                if unwanted_genre_found:
+                    books_ignored += 1
+                    continue
                 # Add book
                 books.append(
                     {
@@ -76,11 +89,16 @@ def scape_books(url):
                         "source_published": json_data["editions"][0][
                             "bookBeatPublishDate"
                         ],
-                        "genres": json_data["genres"],
+                        "genres": genres,
                         "publisher": json_data["editions"][0]["publisher"],
                     }
                 )
         else:
             print("Request failed with status code:", response.status_code)
 
-    return books
+    return {
+        "service": "bookbeat",
+        "books_ignored": books_ignored,
+        "books_count": len(books),
+        "books": books,
+    }
