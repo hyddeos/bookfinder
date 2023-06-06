@@ -2,6 +2,7 @@ import json
 import requests
 import re
 from frontend.assets.url_regex import bookbeat_url_regex
+from datetime import datetime
 
 
 def get_books():
@@ -84,11 +85,14 @@ def scape_books(url):
                         "author": json_data["author"],
                         "url": json_data["shareurl"],
                         "cover": json_data["cover"],
-                        "language": json_data["language"],
-                        "published": json_data["published"],
-                        "source_published": json_data["editions"][0][
-                            "bookBeatPublishDate"
-                        ],
+                        "summary": json_data["summary"],
+                        "published": datetime.strptime(
+                            json_data["published"], "%Y-%m-%dT%H:%M:%S%z"
+                        ).strftime("%Y-%m-%d"),
+                        "source_published": datetime.strptime(
+                            json_data["editions"][0]["bookBeatPublishDate"],
+                            "%Y-%m-%dT%H:%M:%S%z",
+                        ).strftime("%Y-%m-%d"),
                         "genres": genres,
                         "publisher": json_data["editions"][0]["publisher"],
                     }
