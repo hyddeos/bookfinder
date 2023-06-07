@@ -12,7 +12,7 @@ def bookbeat_save(books):
         this_book = Book.objects.filter(title=book["title"])
         if not this_book.exists():  # Then Save the book
             new_book = Book(
-                source_id=book["source_id"],
+                source=books[0]["service"],
                 title=book["title"],
                 author=book["author"],
                 url=book["url"],
