@@ -1,13 +1,14 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8' name="viewport" content="initial-scale=1.0, width=device-width"/>
-    <link rel="stylesheet" href="{% static "frontend/styles.css"%}">
+    <meta charset='utf-8' name="viewport" content="initial-scale=1.0, width=device-width"/>    
+    <link rel="stylesheet" type="text/css" href="{% static "frontend/styles.css" %}?{% now "U" %}">
     <title>The Bookfinder - You can´t read them all! </title>
 </head>
-<body>
-    <div id="app" books="{{ books }}"></div>
+<body >
+    <div id="app" books="{{ books }}" />
     <script src="{% static "frontend/main.js"%}"></script>
 </body>
 </html>

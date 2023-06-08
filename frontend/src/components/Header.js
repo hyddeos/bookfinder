@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Header() {
+export default function Header(props) {
   const [showLogin, setShowlogin] = React.useState(false);
 
   function clickShowLogin() {
@@ -13,23 +13,9 @@ export default function Header() {
   }
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <svg
-          className="fill-current h-8 w-8 mr-2"
-          width="54"
-          height="54"
-          viewBox="0 0 54 54"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
-        </svg>
-        <span className="font-semibold text-xl tracking-tight">
-          Tailwind CSS
-        </span>
-      </div>
+    <nav className="p-6">
       <div className="block lg:hidden">
-        <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+        <button className="flex items-center px-3 py-2 border rounded">
           <svg
             className="fill-current h-3 w-3"
             viewBox="0 0 20 20"
@@ -40,52 +26,72 @@ export default function Header() {
           </svg>
         </button>
       </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          <a
-            href="/"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+      <div className="w-full max-w-6xl m-auto flex-grow lg:flex lg:items-center lg:w-auto">
+        <div className="flex items-center flex-shrink-0 mr-6">
+          <svg
+            className="fill-current h-8 w-8 mr-2"
+            width="54"
+            height="54"
+            viewBox="0 0 54 54"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            HOME
-          </a>
-          <a
-            href="/updatebooks"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-          >
-            UPDATE BOOKS
-          </a>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-          >
-            Blog
-          </a>
+            <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
+          </svg>
+          <span className="font-header text-xl tracking-tight">BOOKFINDER</span>
+        </div>
+        <div className="text-center flex justify-evenly mx-10 lg:flex-grow">
+          <div>
+            <a
+              href="/"
+              className="block font-header mt-4 lg:inline-block lg:mt-0 hover:text-prim mr-4"
+            >
+              HOME
+            </a>
+          </div>
+          <div>
+            <a
+              href="#responsive-header"
+              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim"
+            >
+              MY LISTS
+            </a>
+          </div>
+          <div>
+            <a
+              href="/updatebooks"
+              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim mr-4"
+            >
+              UPDATE BOOKS
+            </a>
+          </div>
         </div>
         <div>
-          <p
+          <button
             onClick={clickShowLogin}
-            className="inline-block text-sm px-4 py-2 leading-none border
-            rounded text-white border-white hover:border-transparent
-            hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+            className="inline-block text-sm px-4 py-2 leading-none
+            bg-acc hover:bg-prim
+            rounded text-white hover:bg-acc_light
+            font-header mt-4 lg:mt-0"
           >
             LOGIN
-          </p>
+          </button>
         </div>
       </div>
       <dialog open={showLogin ? "open" : false} className="z-50 fixed top-1/4">
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-lg">
             <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
-              Get started today
+              Log in to find your next book
             </h1>
 
             <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Obcaecati sunt dolores deleniti inventore quaerat mollitia?
+              By logging in you will be see whats new and start to choose what
+              makes it into your to-read-list. Happy hunting!
             </p>
 
             <form
-              action=""
+              method="post"
+              action="/login"
               className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
             >
               <p className="text-center text-lg font-medium">
@@ -93,15 +99,18 @@ export default function Header() {
               </p>
 
               <div>
-                <label htmlFor="email" className="sr-only">
-                  Email
+                <label htmlFor="username" className="sr-only">
+                  Username
                 </label>
 
                 <div className="relative">
                   <input
-                    type="email"
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                    placeholder="Enter email"
+                    placeholder="Enter username"
                   />
 
                   <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -131,6 +140,9 @@ export default function Header() {
                 <div className="relative">
                   <input
                     type="password"
+                    id="password"
+                    name="password"
+                    required
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter password"
                   />
@@ -159,7 +171,6 @@ export default function Header() {
                   </span>
                 </div>
               </div>
-
               <button
                 type="submit"
                 className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
@@ -172,16 +183,11 @@ export default function Header() {
                 <a className="underline" href="">
                   Sign up
                 </a>
+                not enabled atm
               </p>
             </form>
           </div>
         </div>
-
-        <h3>LOGIN</h3>
-        <form>
-          <p>username</p>
-          <p>password</p>
-        </form>
       </dialog>
     </nav>
   );
