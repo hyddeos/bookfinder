@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Header(props) {
   const [showLogin, setShowlogin] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState("");
+
+  // If there is a log-in error, show the login screen.
+  useEffect(() => {
+    if (props.error) {
+      console.log("in", errorMsg);
+      setShowlogin("open");
+      setErrorMsg("Invalid username or password.");
+    }
+  }, []);
 
   function clickShowLogin() {
-    console.log(showLogin);
     if (!showLogin) {
       setShowlogin("open");
     } else {
@@ -65,34 +74,55 @@ export default function Header(props) {
             </a>
           </div>
         </div>
-        <div>
-          <button
-            onClick={clickShowLogin}
-            className="inline-block text-sm px-4 py-2 leading-none
+        {props.user ? (
+          <div>
+            <a href="/logout">
+              <button
+                className="inline-block text-sm px-4 py-2 leading-none
+                    border-2 border-acc
+                   hover:bg-acc hover:text-white
+                    rounded text-acc 
+                    font-header mt-4 lg:mt-0"
+              >
+                LOGOUT
+              </button>
+            </a>
+          </div>
+        ) : (
+          <div>
+            <button
+              onClick={clickShowLogin}
+              className="inline-block text-sm px-4 py-2 leading-none
             bg-acc hover:bg-prim
-            rounded text-white hover:bg-acc_light
+            rounded text-white 
             font-header mt-4 lg:mt-0"
-          >
-            LOGIN
-          </button>
-        </div>
+            >
+              LOGIN
+            </button>
+          </div>
+        )}
       </div>
-      <dialog open={showLogin ? "open" : false} className="z-50 fixed top-1/4">
-        <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+      <dialog
+        open={showLogin ? "open" : false}
+        className="z-50 fixed top-1/4 bg-prim rounded-md shadow-lg"
+      >
+        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 ">
           <div className="mx-auto max-w-lg">
-            <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
-              Log in to find your next book
+            <h1 className="text-center text-2xl font-bold text-dark font-header sm:text-3xl">
+              LOG IN TO FIND YOUR NEXT BOOK
             </h1>
 
-            <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
+            <p className="mx-auto mt-4 text-dark font-body max-w-md text-center">
               By logging in you will be see whats new and start to choose what
-              makes it into your to-read-list. Happy hunting!
+              makes it into your very own{" "}
+              <span className="italic">to-read-list.</span>
+              <br></br> <span className="font-bold">Happy book hunting!</span>
             </p>
 
             <form
               method="post"
               action="/login"
-              className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+              className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-white"
             >
               <p className="text-center text-lg font-medium">
                 Sign in to your account
@@ -112,23 +142,6 @@ export default function Header(props) {
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter username"
                   />
-
-                  <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                      />
-                    </svg>
-                  </span>
                 </div>
               </div>
 
@@ -146,46 +159,29 @@ export default function Header(props) {
                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter password"
                   />
-
-                  <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      />
-                    </svg>
-                  </span>
                 </div>
+                <p className="text-error font-bold ml-2 mt-1">{errorMsg}</p>
               </div>
-              <button
-                type="submit"
-                className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
-              >
-                Sign in
-              </button>
-
-              <p className="text-center text-sm text-gray-500">
-                No account?
-                <a className="underline" href="">
-                  Sign up
-                </a>
-                not enabled atm
-              </p>
+              <div className="flex justify-center">
+                {" "}
+                <button
+                  type="submit"
+                  className="inline-block text-sm px-8 py-2 leading-none
+                bg-dark hover:bg-prim
+                rounded text-prim hover:text-white
+                font-header mt-4 lg:mt-0"
+                >
+                  Sign in
+                </button>
+              </div>
             </form>
+            <p className="text-center text-sm text-dark mt-2 font-bold mx-2">
+              No account?{"  "}
+              <a className="underline" href="">
+                Sign up
+              </a>
+              {"   "}(not enabled atm)
+            </p>
           </div>
         </div>
       </dialog>

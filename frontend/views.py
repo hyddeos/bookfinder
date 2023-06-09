@@ -2,10 +2,10 @@ from django.shortcuts import render
 from frontend.assets.bookbeat_scraper import get_books
 from frontend.assets.save_to_db import save_books
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
-from frontend.models import User
-import json
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -40,10 +40,12 @@ def handle_login(request):
             return redirect("/")
         else:
             # Invalid credentials
-            return render(
-                request,
-                "accounts/login.html",
-                {"error": "Invalid username or password."},
-            )
+            messages.error(request, "Invalid username or password.")
+            return redirect("/")
     else:
-        return render(request, "fixthis.html")
+        return render(request, "index.html")
+
+
+def handle_logout(request):
+    logout(request)
+    return redirect("/")
