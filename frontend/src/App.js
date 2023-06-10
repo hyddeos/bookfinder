@@ -7,11 +7,13 @@ const App = () => {
   const books = document.getElementById("app").getAttribute("books");
   const user = document.getElementById("app").getAttribute("user");
   const error = document.getElementById("app").getAttribute("error");
+  console.log("books", books);
 
   return (
     <div className="h-screen bg-light">
       <div className="max-w-6xl m-auto">
         <Header user={user} error={error} />
+        <p>här kommer böckerna:{books}</p>
       </div>
     </div>
   );

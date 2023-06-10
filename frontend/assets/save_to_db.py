@@ -8,7 +8,6 @@ def save_books(books):
 
 def bookbeat_save(books):
     for book in books[0]["books"]:
-        print("This Book", book["title"])
         this_book = Book.objects.filter(title=book["title"])
         if not this_book.exists():  # Then Save the book
             new_book = Book(
@@ -25,7 +24,6 @@ def bookbeat_save(books):
 
             # Add genres
             for genre in book["genres"]:
-                print("gn", genre)
                 this_genre = Genre.objects.filter(name=genre)
                 if not this_genre.exists():
                     new_genre = Genre(name=genre)
@@ -33,3 +31,8 @@ def bookbeat_save(books):
                 new_book.genres.set(this_genre)
 
             # Add Publisher
+            this_publisher = Publisher.objects.filter(name=book["publisher"])
+            if not this_publisher.exists():
+                new_publisher = Publisher(name=book["publisher"])
+                new_publisher.save()
+                new_book.publisher.set(this_publisher)

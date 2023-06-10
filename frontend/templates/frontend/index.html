@@ -9,13 +9,14 @@
 </head>
 <body >
     <div id="app" books="{{ books }}" 
-    {% if user.is_authenticated %} 
-        user= {{ user }}
-    {% else %}
-        {% for message in messages %}
-        error= {{ message }}</p>
-{% endfor %}
-    {% endif %}/>
+        {% if user.is_authenticated %} 
+            user= {{ user }}
+        {% else %}
+            {% for message in messages %}
+            error= {{ message }}</p>
+        {% endfor %}
+        {% endif %}
+    />
     <script src="{% static "frontend/main.js"%}"></script>
 </body>
 </html>

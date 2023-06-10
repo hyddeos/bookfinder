@@ -59,6 +59,8 @@ def scape_books(url):
         "Familjeliv & Relationer",
         "Hälsa",
         "Kropp & själ",
+        "Noveller, poesi & drama",
+        "Parodier & satirer",
     ]
     for book_url in books_links:
         response = requests.get(book_url)

@@ -1,21 +1,29 @@
 from django.shortcuts import render
-from frontend.assets.bookbeat_scraper import get_books
-from frontend.assets.save_to_db import save_books
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+
+# Own functions
+from frontend.assets.bookbeat_scraper import get_books
+from frontend.assets.save_to_db import save_books
+from frontend.assets.load_from_db import load_books
 
 
 # Create your views here.
 
 
 def index(request):
+    user = request.user
+
+    if user:
+        books = load_books(user)
+
     return render(
         request,
         "frontend/index.html",
         {
-            "books": " test books",
+            "books": books,
         },
     )
 
