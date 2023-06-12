@@ -59,7 +59,7 @@ class Book(models.Model):
     url = models.CharField(max_length=200, blank=True)
     summary = models.CharField(max_length=1500, blank=True)
     source_published = models.DateTimeField(blank=True)
-    published = models.DateTimeField(blank=True)
+    published = models.DateTimeField(null=True, blank=True)
     publisher = models.ForeignKey(
         "Publisher", on_delete=models.CASCADE, blank=True, null=True
     )

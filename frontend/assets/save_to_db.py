@@ -25,11 +25,10 @@ def bookbeat_save(books):
 
             # Add genres
             for genre in book["genres"]:
-                this_genre = Genre.objects.filter(name=genre)
-                if not this_genre.exists():
-                    new_genre = Genre(name=genre)
-                    new_genre.save()
-                new_book.genres.set(this_genre)
+                this_genre = Genre.objects.filter(name=genre).first()
+                if not this_genre:
+                    this_genre = Genre.objects.create(name=genre)
+                new_book.genres.add(this_genre)
 
             this_publisher = Publisher.objects.filter(name=book["publisher"])
             if not this_publisher:
