@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-
 
 class User(AbstractUser):
     groups = None
@@ -33,6 +31,7 @@ class UserBook(models.Model):
         blank=True,
     )
     rating = models.DecimalField(blank=True, decimal_places=2, max_digits=4)
+    publisher = models.ForeignKey("Publisher", on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f"{self.pk}, {self.title}"
@@ -61,7 +60,9 @@ class Book(models.Model):
     summary = models.CharField(max_length=1500, blank=True)
     source_published = models.DateTimeField(blank=True)
     published = models.DateTimeField(blank=True)
-    publisher = models.ManyToManyField(Publisher, blank=True)
+    publisher = models.ForeignKey(
+        "Publisher", on_delete=models.CASCADE, blank=True, null=True
+    )
     genres = models.ManyToManyField(Genre, blank=True)
 
     def __str__(self) -> str:

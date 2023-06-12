@@ -9,6 +9,9 @@ from frontend.assets.bookbeat_scraper import get_books
 from frontend.assets.save_to_db import save_books
 from frontend.assets.load_from_db import load_books
 
+# Models
+from frontend.models import *
+
 
 # Create your views here.
 

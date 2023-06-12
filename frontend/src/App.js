@@ -4,16 +4,24 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const books = document.getElementById("app").getAttribute("books");
+  const serializedBooks = document.getElementById("app").getAttribute("books");
+  const books = JSON.parse(serializedBooks);
   const user = document.getElementById("app").getAttribute("user");
   const error = document.getElementById("app").getAttribute("error");
-  console.log("books", books);
+  console.log("bo", books);
 
   return (
     <div className="h-screen bg-light">
       <div className="max-w-6xl m-auto">
         <Header user={user} error={error} />
-        <p>här kommer böckerna:{books}</p>
+        <p>BOOKS:</p>
+        <ul>
+          {books.map((book) => (
+            <li key={book.pk}>
+              nr {book.pk} {book.fields.title}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
