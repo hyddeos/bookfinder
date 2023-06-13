@@ -12,6 +12,7 @@ module.exports = {
       //Main
       white: "#ffffff",
       light: "#e7e3d0",
+      light_blue: "#7ca9d5",
       prim: "#feaf0e",
       dark: "#241f40",
       acc: "#873f42",

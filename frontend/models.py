@@ -43,12 +43,18 @@ class Publisher(models.Model):
     def __str__(self) -> str:
         return f"{self.pk}, {self.name}"
 
+    def natural_key(self):
+        return (self.name,)
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self) -> str:
         return f"{self.pk}, {self.name}"
+
+    def natural_key(self):
+        return self.name + " "
 
 
 class Book(models.Model):
