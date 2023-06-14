@@ -1,6 +1,34 @@
+import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
 
 export default function ListBooks(props) {
+  const [readThis, setReadThis] = React.useState([]);
+  const [readMaybe, setReadMaybe] = React.useState([]);
+  const [readNot, setReadNot] = React.useState([]);
+
+  function handleClick(key, list) {
+    // Check if key already added
+    if (readThis.includes(key)) {
+      setReadThis((prevReadThis) =>
+        prevReadThis.filter((item) => item !== key)
+      );
+    } else if (readMaybe.includes(key)) {
+      setReadMaybe((prevReadMaybe) =>
+        prevReadMaybe.filter((item) => item !== key)
+      );
+    } else if (readNot.includes(key)) {
+      setReadNot((prevReadNot) => prevReadNot.filter((item) => item !== key));
+    }
+    // Add key to right Read-type
+    if (list === "read") {
+      setReadThis((prevReadThis) => [...prevReadThis, key]);
+    } else if (list === "maybe") {
+      setReadMaybe((prevReadMaybe) => [...prevReadMaybe, key]);
+    } else if (list === "not") {
+      setReadNot((prevReadNot) => [...prevReadNot, key]);
+    }
+  }
+
   return (
     <div className="h-screen bg-light">
       <div className="max-w-6xl">
@@ -22,7 +50,9 @@ export default function ListBooks(props) {
               </div>
               <div className="w-1/5 p-3 bg-prim">
                 <div className="pt-1">
-                  <h2 className="font-header text-dark">{book.fields.title}</h2>
+                  <h2 className="font-header  text-dark">
+                    {book.fields.title}
+                  </h2>
                 </div>
                 <div>
                   <h2 className="font-ingress text-dark py-4">
@@ -44,25 +74,39 @@ export default function ListBooks(props) {
                 <p className="text-body">{book.fields.summary}</p>
               </div>
               <div className="flex flex-wrap w-1/12">
-                <div className="bg-succes w-full h-1/3 text-white text-center grid place-items-center hover:bg-prim cursor-pointer">
-                  <span class="material-symbols-outlined text-4xl">
+                <div
+                  onClick={() => handleClick(book.pk, "read")}
+                  className="bg-succes w-full h-1/3 text-white text-center grid place-items-center hover:bg-prim cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-4xl">
                     thumb_up
                   </span>
                 </div>
-                <div className="bg-light_blue w-full h-1/3 text-center grid place-items-center hover:bg-prim cursor-pointer">
-                  <span class=" material-symbols-outlined text-white text-4xl">
+                <div
+                  onClick={() => handleClick(book.pk, "maybe")}
+                  className="bg-light_blue w-full h-1/3 text-center grid place-items-center hover:bg-prim cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-white text-4xl">
                     thumbs_up_down
                   </span>
                 </div>
-                <div className="bg-error w-full h-1/3 text-center grid place-items-center hover:bg-prim hover:cursor-pointer">
-                  <span class="material-symbols-outlined text-white text-4xl ">
+                <div
+                  onClick={() => handleClick(book.pk, "not")}
+                  className="bg-error w-full h-1/3 text-center grid place-items-center hover:bg-prim hover:cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-white text-4xl ">
                     thumb_down
                   </span>
                 </div>
               </div>
             </div>
             <div className="bg-acc rounded-b-xl p-1 px-3">
-              <p className="text-white ">Genres: {book.fields.genres}</p>
+              <p className="text-white ">
+                Genres:{" "}
+                <span className="font-ingress font-medium">
+                  {book.fields.genres}
+                </span>
+              </p>
             </div>
           </div>
         ))}
