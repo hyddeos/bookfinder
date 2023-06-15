@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "frontend/styles.css" %}?{% now "U" %}">
     <title>The Bookfinder - You can´t read them all! </title>
 </head>
-<body >
+<body>
     <div id="app" books="{{ books }}" 
         {% if user.is_authenticated %} 
             user= {{ user }}

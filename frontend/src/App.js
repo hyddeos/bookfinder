@@ -11,12 +11,13 @@ const App = () => {
   const user = document.getElementById("app").getAttribute("user");
   const error = document.getElementById("app").getAttribute("error");
 
+  console.log("user", user);
+
   return (
     <div className="h-screen bg-light">
       <div className="max-w-6xl m-auto">
         <Header user={user} error={error} />
-        <p>BOOKS:</p>
-        <ListBooks books={books} />
+        {user ? <ListBooks books={books} /> : " "}
       </div>
     </div>
   );
