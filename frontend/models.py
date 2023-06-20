@@ -6,6 +6,12 @@ class User(AbstractUser):
     groups = None
     user_permissions = None
 
+    def __str__(self):
+        return self.username
+
+
+class UserList(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     want_to_read = models.ManyToManyField(
         "Book", blank=True, related_name="want_to_read_book"
     )
@@ -15,9 +21,6 @@ class User(AbstractUser):
     wont_read = models.ManyToManyField(
         "Book", related_name="wont_read_book", blank=True
     )
-
-    def __str__(self):
-        return self.username
 
 
 class UserBook(models.Model):

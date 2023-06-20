@@ -8,11 +8,11 @@ export default function ListBooks(props) {
   console.log("List, props", props);
   console.log("2", props.bookData);
 
-  function updateBooks() {
+  function updateBook(key, list) {
+    console.log("in updatebook");
     const data = {
-      readThis: readThis,
-      readMaybe: readMaybe,
-      readNot: readNot,
+      readList: list,
+      key: key,
     };
     fetch("http://127.0.0.1:8000/update", {
       method: "POST",
@@ -48,13 +48,14 @@ export default function ListBooks(props) {
     } else {
       // Add key to right Read-type
       if (list === "read") {
-        setReadThis((prevReadThis) => [...prevReadThis, key]);
+        setReadThis((prevReadMaybe) => [...prevReadMaybe, key]);
       } else if (list === "maybe") {
         setReadMaybe((prevReadMaybe) => [...prevReadMaybe, key]);
       } else if (list === "not") {
         setReadNot((prevReadNot) => [...prevReadNot, key]);
       }
     }
+    updateBook(key, list);
   }
   console.log("red", readThis);
   console.log("man", readMaybe);

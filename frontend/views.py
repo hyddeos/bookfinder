@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.http import JsonResponse
 import json
+from django.contrib.auth.decorators import login_required
 
 
 # Own functions
@@ -19,13 +20,13 @@ from frontend.models import *
 
 
 def index(request):
-    user = request.user
+    User = get_user_model()
     page_number = request.GET.get("page")
     if not page_number:
         page_number = 1
 
-    if user:
-        books_data = load_books(user, page_number)
+    if User:
+        books_data = load_books(User, page_number)
         pages = books_data["pages"]
         books = books_data["books"]
         books = json.loads(books)
@@ -42,6 +43,7 @@ def index(request):
     return render(request, "frontend/index.html", {"serialized_data": serialized_data})
 
 
+# Update the books from the book services
 def update_books(request):
     get_books()
     print("--UPDATE DONE--")
@@ -73,15 +75,42 @@ def handle_logout(request):
 
 
 @csrf_exempt
-def handle_user_books(request):
+@login_required
+def handle_user_book(request):
     if request.method == "POST":
-        data = json.loads(request.body.decode("utf-8"))
-        print("data!", data)
-        read_this = data["readThis"]
-        read_maybe = data["readMaybe"]
-        read_not = data["readNot"]
-        print(read_this, read_maybe)
-        test = {
-            "status": 200,
-        }
-        return JsonResponse(test)
+        user = request.user
+        if user.is_authenticated:
+            data = json.loads(request.body.decode("utf-8"))
+            book = Book.objects.get(pk=data["key"])
+
+            user_list, created = UserList.objects.get_or_create(user=user)
+            want_to_read = user_list.want_to_read.all()
+            maybe_to_read = user_list.maybe_to_read.all()
+            wont_read = user_list.wont_read.all()
+
+            if data["readList"] == "read":
+                if book in want_to_read:
+                    user_list.want_to_read.remove(book)
+                else:
+                    user_list.want_to_read.add(book)
+                user_list.maybe_to_read.remove(book)
+                user_list.wont_read.remove(book)
+            elif data["readList"] == "maybe":
+                if book in maybe_to_read:
+                    user_list.maybe_to_read.remove(book)
+                else:
+                    user_list.maybe_to_read.add(book)
+                user_list.want_to_read.remove(book)
+                user_list.wont_read.remove(book)
+            elif data["readList"] == "not":
+                if book in wont_read:
+                    user_list.wont_read.remove(book)
+                else:
+                    user_list.wont_read.add(book)
+                user_list.maybe_to_read.remove(book)
+                user_list.want_to_read.remove(book)
+
+            status = {
+                "status": 200,
+            }
+            return JsonResponse(status)
