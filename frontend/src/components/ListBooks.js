@@ -1,11 +1,37 @@
-import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
-import { redirect } from "react-router-dom";
+import Pagination from "./Pagination";
 
 export default function ListBooks(props) {
   const [readThis, setReadThis] = React.useState([]);
   const [readMaybe, setReadMaybe] = React.useState([]);
   const [readNot, setReadNot] = React.useState([]);
+  console.log("List, props", props);
+  console.log("2", props.bookData);
+
+  function updateBooks() {
+    const data = {
+      readThis: readThis,
+      readMaybe: readMaybe,
+      readNot: readNot,
+    };
+    fetch("http://127.0.0.1:8000/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("OK");
+        } else {
+          console.log("not Ok");
+        }
+      })
+      .catch((error) => {
+        console.log("some error", error);
+      });
+  }
 
   function handleClick(key, list) {
     // Check if key already added
@@ -38,16 +64,9 @@ export default function ListBooks(props) {
     <div className="h-screen bg-light">
       <div className="max-w-6xl">
         <div className="flex justify-center">
-          <button
-            className="inline-block h-10 w-48 text-sm px-4 py-2 leading-none
-            bg-acc hover:bg-prim
-            rounded text-white 
-            font-header mt-4 lg:mt-0"
-          >
-            SUBMIT BOOKS
-          </button>
+          <Pagination pages={props.bookData.pages} />
         </div>
-        {props.books.map((book) => (
+        {props.bookData.books.map((book) => (
           <div key={book.pk} className="my-4 ">
             <div className="flex max-h-60 border-t-4 border-l-4 border-r-4 border-acc rounded-t-xl bg-white overflow-hidden">
               <div className="max-w-6xl object-scale-down bg-prim w-1/5">

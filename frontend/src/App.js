@@ -6,18 +6,17 @@ import Header from "./components/Header";
 import ListBooks from "./components/ListBooks";
 
 const App = () => {
-  const serializedBooks = document.getElementById("app").getAttribute("books");
-  const books = JSON.parse(serializedBooks);
   const user = document.getElementById("app").getAttribute("user");
   const error = document.getElementById("app").getAttribute("error");
-
-  console.log("user", user);
+  const rawBookData = document.getElementById("app").getAttribute("data");
+  const bookData = JSON.parse(rawBookData);
+  console.log("user App", user);
 
   return (
     <div className="h-screen bg-light">
       <div className="max-w-6xl m-auto">
         <Header user={user} error={error} />
-        {user ? <ListBooks books={books} /> : " "}
+        {user ? <ListBooks bookData={bookData} user={user} /> : ""}
       </div>
     </div>
   );

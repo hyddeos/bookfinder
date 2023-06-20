@@ -11,4 +11,4 @@ def bookbeat_url_regex(url, offset):
         updated_url = re.sub(r"(?<=offset=)\d+", str(offset), url)
     else:
         print("Offset not found in the URL")
-    return url
+    return updated_url
