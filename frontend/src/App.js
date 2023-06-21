@@ -10,12 +10,17 @@ const App = () => {
   const error = document.getElementById("app").getAttribute("error");
   const rawBookData = document.getElementById("app").getAttribute("data");
   const bookData = JSON.parse(rawBookData);
+  const listView = document.getElementById("app").getAttribute("list");
 
   return (
     <div className="h-screen bg-light">
       <div className="max-w-6xl m-auto">
         <Header user={user} error={error} />
-        {user ? <ListBooks bookData={bookData} user={user} /> : ""}
+        {user ? (
+          <ListBooks bookData={bookData} user={user} listView={listView} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

@@ -137,7 +137,11 @@ def readlist(request):
     }
     serialized_data = json.dumps(context)
 
-    return render(request, "frontend/index.html", {"serialized_data": serialized_data})
+    return render(
+        request,
+        "frontend/index.html",
+        {"serialized_data": serialized_data, "list": "read"},
+    )
 
 
 @login_required
@@ -160,7 +164,11 @@ def maybelist(request):
     }
     serialized_data = json.dumps(context)
 
-    return render(request, "frontend/index.html", {"serialized_data": serialized_data})
+    return render(
+        request,
+        "frontend/index.html",
+        {"serialized_data": serialized_data, "list": "maybe"},
+    )
 
 
 @login_required
@@ -183,4 +191,8 @@ def notlist(request):
     }
     serialized_data = json.dumps(context)
 
-    return render(request, "frontend/index.html", {"serialized_data": serialized_data})
+    return render(
+        request,
+        "frontend/index.html",
+        {"serialized_data": serialized_data, "list": "not"},
+    )

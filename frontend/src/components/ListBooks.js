@@ -6,6 +6,30 @@ export default function ListBooks(props) {
   const [readThis, setReadThis] = React.useState([]);
   const [readMaybe, setReadMaybe] = React.useState([]);
   const [readNot, setReadNot] = React.useState([]);
+  console.log("p", props);
+
+  React.useEffect(() => {
+    listViewCheck();
+  }, []);
+
+  function listViewCheck() {
+    if (props.listView === "read") {
+      console.log("True!");
+      props.bookData.books.forEach((book) => {
+        setReadThis((prevReadThis) => [...prevReadThis, book.pk]);
+      });
+    } else if (props.listView == "maybe") {
+      console.log("Maybe!");
+      props.bookData.books.forEach((book) => {
+        setReadMaybe((prevReadMaybe) => [...prevReadMaybe, book.pk]);
+      });
+    } else if (props.listView == "not") {
+      console.log("not!");
+      props.bookData.books.forEach((book) => {
+        setReadNot((prevReadNot) => [...prevReadNot, book.pk]);
+      });
+    }
+  }
 
   function updateBook(key, list) {
     const data = {
@@ -46,7 +70,7 @@ export default function ListBooks(props) {
     } else {
       // Add key to right Read-type
       if (list === "read") {
-        setReadThis((prevReadMaybe) => [...prevReadMaybe, key]);
+        setReadThis((prevReadThis) => [...prevReadThis, key]);
       } else if (list === "maybe") {
         setReadMaybe((prevReadMaybe) => [...prevReadMaybe, key]);
       } else if (list === "not") {

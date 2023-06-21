@@ -9,7 +9,7 @@
 </head>
 <body bgcolor="#e7e3d0">
 
-    <div id="app" data="{{ serialized_data }}" 
+    <div id="app" data="{{ serialized_data }}" list="{{ list }}"
     {% if user.is_authenticated %} 
         user= {{ user }}
     {% else %}
