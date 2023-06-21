@@ -2,8 +2,6 @@ import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
 
 export default function Pagination(props) {
-  console.log("this is pagenr", props);
-
   return (
     <div className="flex ">
       {props.pages.has_previous_page && (

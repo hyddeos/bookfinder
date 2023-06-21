@@ -22,6 +22,22 @@ class UserList(models.Model):
         "Book", related_name="wont_read_book", blank=True
     )
 
+    def books_on_all_lists(self):
+        book_ids = []
+        book_ids.extend(self.want_to_read.values_list("id", flat=True))
+        book_ids.extend(self.maybe_to_read.values_list("id", flat=True))
+        book_ids.extend(self.wont_read.values_list("id", flat=True))
+        return book_ids
+
+    def want_to_read_ids(self):
+        return self.want_to_read.values_list("id", flat=True)
+
+    def maybe_to_read_ids(self):
+        return self.maybe_to_read.values_list("id", flat=True)
+
+    def wont_read_ids(self):
+        return self.wont_read.values_list("id", flat=True)
+
 
 class UserBook(models.Model):
     user = models.ForeignKey(

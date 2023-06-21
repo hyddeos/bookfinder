@@ -24,7 +24,7 @@ export default function Header(props) {
   return (
     <nav className="p-6">
       <div className="block lg:hidden">
-        <button className="flex items-center px-3 py-2 border rounded">
+        <button className="flex items-center px-3 py-2 border rounded ">
           <svg
             className="fill-current h-3 w-3"
             viewBox="0 0 20 20"
@@ -46,31 +46,49 @@ export default function Header(props) {
           >
             <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
           </svg>
-          <span className="font-header text-xl tracking-tight">BOOKFINDER</span>
+          <span className="font-header text-xl tracking-tight text-dark">
+            BOOKFINDER
+          </span>
         </div>
         <div className="text-center flex justify-evenly mx-10 lg:flex-grow">
           <div>
             <a
               href="/"
-              className="block font-header mt-4 lg:inline-block lg:mt-0 hover:text-prim mr-4"
+              className="block font-header mt-4 lg:inline-block lg:mt-0 hover:text-prim mr-4 text-dark"
             >
               HOME
             </a>
           </div>
           <div>
             <a
-              href="#responsive-header"
-              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim"
+              href="/readlist"
+              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
             >
-              MY LISTS
+              READ LIST
+            </a>
+          </div>
+          <div>
+            <a
+              href="/maybelist"
+              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
+            >
+              MAYBE LIST
+            </a>
+          </div>
+          <div>
+            <a
+              href="/notlist"
+              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
+            >
+              NOT LIST
             </a>
           </div>
           <div>
             <a
               href="/updatebooks"
-              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim mr-4"
+              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim mr-4 text-dark"
             >
-              UPDATE BOOKS
+              UPDATE SERVICES
             </a>
           </div>
         </div>
@@ -95,7 +113,7 @@ export default function Header(props) {
               className="inline-block text-sm px-4 py-2 leading-none
             bg-acc hover:bg-prim
             rounded text-white 
-            font-header mt-4 lg:mt-0"
+            font-header mt-4 lg:mt-0 "
             >
               LOGIN
             </button>

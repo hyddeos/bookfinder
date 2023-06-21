@@ -20,13 +20,14 @@ from frontend.models import *
 
 
 def index(request):
-    User = get_user_model()
+    user = request.user
     page_number = request.GET.get("page")
     if not page_number:
         page_number = 1
 
-    if User:
-        books_data = load_books(User, page_number)
+    if user.is_authenticated:
+        list_type = "undesided"
+        books_data = load_books(user, page_number, list_type)
         pages = books_data["pages"]
         books = books_data["books"]
         books = json.loads(books)
@@ -114,3 +115,72 @@ def handle_user_book(request):
                 "status": 200,
             }
             return JsonResponse(status)
+
+
+@login_required
+def readlist(request):
+    user = request.user
+    page_number = request.GET.get("page")
+    if not page_number:
+        page_number = 1
+
+    list_type = "want_to_read"
+
+    books_data = load_books(user, page_number, list_type)
+    pages = books_data["pages"]
+    books = books_data["books"]
+    books = json.loads(books)
+
+    context = {
+        "books": books,
+        "pages": pages,
+    }
+    serialized_data = json.dumps(context)
+
+    return render(request, "frontend/index.html", {"serialized_data": serialized_data})
+
+
+@login_required
+def maybelist(request):
+    user = request.user
+    page_number = request.GET.get("page")
+    if not page_number:
+        page_number = 1
+
+    list_type = "maybe_to_read"
+
+    books_data = load_books(user, page_number, list_type)
+    pages = books_data["pages"]
+    books = books_data["books"]
+    books = json.loads(books)
+
+    context = {
+        "books": books,
+        "pages": pages,
+    }
+    serialized_data = json.dumps(context)
+
+    return render(request, "frontend/index.html", {"serialized_data": serialized_data})
+
+
+@login_required
+def notlist(request):
+    user = request.user
+    page_number = request.GET.get("page")
+    if not page_number:
+        page_number = 1
+
+    list_type = "not_to_read"
+
+    books_data = load_books(user, page_number, list_type)
+    pages = books_data["pages"]
+    books = books_data["books"]
+    books = json.loads(books)
+
+    context = {
+        "books": books,
+        "pages": pages,
+    }
+    serialized_data = json.dumps(context)
+
+    return render(request, "frontend/index.html", {"serialized_data": serialized_data})

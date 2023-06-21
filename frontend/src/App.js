@@ -10,7 +10,6 @@ const App = () => {
   const error = document.getElementById("app").getAttribute("error");
   const rawBookData = document.getElementById("app").getAttribute("data");
   const bookData = JSON.parse(rawBookData);
-  console.log("user App", user);
 
   return (
     <div className="h-screen bg-light">

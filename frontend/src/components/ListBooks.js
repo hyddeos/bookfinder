@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Pagination from "./Pagination";
+import ListType from "./ListType";
 
 export default function ListBooks(props) {
   const [readThis, setReadThis] = React.useState([]);
   const [readMaybe, setReadMaybe] = React.useState([]);
   const [readNot, setReadNot] = React.useState([]);
-  console.log("List, props", props);
-  console.log("2", props.bookData);
 
   function updateBook(key, list) {
-    console.log("in updatebook");
     const data = {
       readList: list,
       key: key,
@@ -57,13 +55,11 @@ export default function ListBooks(props) {
     }
     updateBook(key, list);
   }
-  console.log("red", readThis);
-  console.log("man", readMaybe);
-  console.log("not", readNot);
 
   return (
     <div className="h-screen bg-light">
       <div className="max-w-6xl">
+        <ListType lists={props.lists} />
         <div className="flex justify-center">
           <Pagination pages={props.bookData.pages} />
         </div>
@@ -157,6 +153,9 @@ export default function ListBooks(props) {
             </div>
           </div>
         ))}
+        <div className="flex justify-center">
+          <Pagination pages={props.bookData.pages} />
+        </div>
       </div>
     </div>
   );
