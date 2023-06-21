@@ -6,7 +6,6 @@ export default function ListBooks(props) {
   const [readThis, setReadThis] = React.useState([]);
   const [readMaybe, setReadMaybe] = React.useState([]);
   const [readNot, setReadNot] = React.useState([]);
-  console.log("p", props);
 
   React.useEffect(() => {
     listViewCheck();

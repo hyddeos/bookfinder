@@ -1,4 +1,3 @@
-import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
 
 export default function ListType() {
@@ -12,7 +11,7 @@ export default function ListType() {
     } else if (currentUrl.includes("notlist")) {
       return "NOT LIST";
     } else {
-      return "UNDESIDED LIST";
+      return "UNDECIDED LIST";
     }
   }
 

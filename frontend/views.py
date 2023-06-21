@@ -38,10 +38,16 @@ def index(request):
         }
         serialized_data = json.dumps(context)
 
+        return render(
+            request, "frontend/index.html", {"serialized_data": serialized_data}
+        )
+
     else:
         context = {}
-
-    return render(request, "frontend/index.html", {"serialized_data": serialized_data})
+        serialized_data = json.dumps(context)
+        return render(
+            request, "frontend/index.html", {"serialized_data": serialized_data}
+        )
 
 
 # Update the books from the book services
