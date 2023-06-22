@@ -11,8 +11,8 @@ const App = () => {
   const error = document.getElementById("app").getAttribute("error");
   const rawBookData = document.getElementById("app").getAttribute("data");
   const bookData = JSON.parse(rawBookData);
-
   const listView = document.getElementById("app").getAttribute("list");
+  console.log("app", bookData);
 
   return (
     <div className="h-screen bg-light">
@@ -21,7 +21,7 @@ const App = () => {
         {user ? (
           <ListBooks bookData={bookData} user={user} listView={listView} />
         ) : (
-          <WelcomePage />
+          <WelcomePage bookData={bookData} />
         )}
       </div>
     </div>

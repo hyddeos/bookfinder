@@ -1,58 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "./Pagination";
-import ListType from "./ListType";
 
-export default function ListBooks(props) {
+export default function ListBooksSample(props) {
   const [readThis, setReadThis] = React.useState([]);
   const [readMaybe, setReadMaybe] = React.useState([]);
   const [readNot, setReadNot] = React.useState([]);
-
-  React.useEffect(() => {
-    listViewCheck();
-  }, []);
-
-  function listViewCheck() {
-    if (props.listView === "read") {
-      console.log("True!");
-      props.bookData.books.forEach((book) => {
-        setReadThis((prevReadThis) => [...prevReadThis, book.pk]);
-      });
-    } else if (props.listView == "maybe") {
-      console.log("Maybe!");
-      props.bookData.books.forEach((book) => {
-        setReadMaybe((prevReadMaybe) => [...prevReadMaybe, book.pk]);
-      });
-    } else if (props.listView == "not") {
-      console.log("not!");
-      props.bookData.books.forEach((book) => {
-        setReadNot((prevReadNot) => [...prevReadNot, book.pk]);
-      });
-    }
-  }
-
-  function updateBook(key, list) {
-    const data = {
-      readList: list,
-      key: key,
-    };
-    fetch("http://127.0.0.1:8000/update", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("OK");
-        } else {
-          console.log("not Ok");
-        }
-      })
-      .catch((error) => {
-        console.log("some error", error);
-      });
-  }
 
   function handleClick(key, list) {
     // Check if key already added
@@ -76,19 +27,21 @@ export default function ListBooks(props) {
         setReadNot((prevReadNot) => [...prevReadNot, key]);
       }
     }
-    updateBook(key, list);
   }
 
   return (
     <div className="h-screen bg-light">
-      <div className="max-w-6xl mx-2">
-        <ListType lists={props.lists} />
-        <div className="flex justify-center">
-          <Pagination
-            pages={props.bookData.pages}
-            total={props.bookData.total_books}
-          />
-        </div>
+      <div className="bg-gradient-to-b from-dark to-light h-18">
+        <h3 className="text-prim font-header text-8xl text-center ">
+          HERE´S HOW IT LOOKS
+        </h3>
+        <h5 className="text-left text-dark font-ingress font-bold text-center">
+          Well, on these sample books, your preferences won't be saved, but at
+          least you will get an idea of how it will work.
+        </h5>
+      </div>
+      <div className="max-w-6xl mx-2 ">
+        <div className="flex justify-center"></div>
         {props.bookData.books.map((book) => (
           <div key={book.pk} className="my-4 ">
             <div className="flex max-h-60 border-t-4 border-l-4 border-r-4 border-acc rounded-t-xl bg-white overflow-hidden">
@@ -185,9 +138,7 @@ export default function ListBooks(props) {
             </div>
           </div>
         ))}
-        <div className="flex justify-center">
-          <Pagination pages={props.bookData.pages} />
-        </div>
+        <div className="flex justify-center"></div>
       </div>
     </div>
   );

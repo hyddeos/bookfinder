@@ -76,16 +76,19 @@ export default function WelcomeHero(props) {
           />
         </div>
         <div>
-          <p className="text-ingress text-light text-xl px-8 py-6">
+          <p className="text-ingress text-light text-xl px-8 py-3">
             Create an account and start to fill up your{" "}
             <span className="italic">to-read-list</span> with the most
-            intressing books from <span className="font-semibold">your</span>{" "}
-            audiobook provider in no time!
+            intressing books the <span className="font-bold">science</span>,{" "}
+            <span className="font-bold">psychology</span> and{" "}
+            <span className="font-bold">philosophy</span> genre from{" "}
+            <span className="font-semibold">your</span> audiobook provider in no
+            time!
           </p>
           <div className="flex  justify-center">
             <a href="/signup">
               <button
-                className="inline-block text-sm px-4 py-2 leading-none
+                className="inline-block text-sm px-4 leading-none
           bg-prim hover:bg-acc
           rounded-lg text-white h-20
           font-header mt-4 lg:mt-0 border-acc hover:border-prim border-4"

@@ -3,6 +3,11 @@ import React, { useState, useEffect } from "react";
 export default function Header(props) {
   const [showLogin, setShowlogin] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
 
   // If there is a log-in error, show the login screen.
   useEffect(() => {
@@ -35,8 +40,8 @@ export default function Header(props) {
           </svg>
         </button>
       </div>
-      <div className="w-full m-auto flex justify-around flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="flex items-center flex-shrink-0 w-32 pl-3">
+      <div className="w-full m-auto flex justify-around flex-grow lg:flex lg:items-center mt-2 lg:w-auto ">
+        <div className="flex items-center flex-shrink-0 w-40 pl-3 pb-3">
           <img src="https://svgshare.com/i/uZ0.svg" alt="bookfinder logo" />
         </div>
         <div className="w-2/4 text-center flex justify-around mx-2 lg:flex-grow">
@@ -48,30 +53,43 @@ export default function Header(props) {
               HOME
             </a>
           </div>
-          <div>
-            <a
-              href="/readlist"
+          <div className="relative">
+            <button
+              onClick={toggleDropdown}
               className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
             >
-              READ LIST
-            </a>
+              <span className="mr-2">MY LISTS 🠋</span>
+            </button>
+            {isDropdownOpen && (
+              <div className="origin-top-right absolute -right-11 mt-4 w-56 rounded-md shadow-lg bg-white ring-1 ring-dark ring-opacity-5 divide-y divide-dark">
+                <div className="p-3">
+                  <a
+                    href="/readlist"
+                    className="block font-header lg:inline-block lg:mt-0  hover:text-prim text-dark"
+                  >
+                    READ LIST
+                  </a>
+                </div>
+                <div className="p-3">
+                  <a
+                    href="/maybelist"
+                    className="block font-header lg:inline-block lg:mt-0  hover:text-prim text-dark"
+                  >
+                    MAYBE LIST
+                  </a>
+                </div>
+                <div className="p-3">
+                  <a
+                    href="/notlist"
+                    className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
+                  >
+                    NOT LIST
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
-          <div>
-            <a
-              href="/maybelist"
-              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
-            >
-              MAYBE LIST
-            </a>
-          </div>
-          <div>
-            <a
-              href="/notlist"
-              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
-            >
-              NOT LIST
-            </a>
-          </div>
+
           <div>
             <a
               href="/updatebooks"
@@ -111,7 +129,7 @@ export default function Header(props) {
       </div>
       <dialog
         open={showLogin ? "open" : false}
-        className="z-50 fixed top-1/4 bg-prim rounded-md shadow-lg"
+        className="z-50 fixed top-1/4 bg-prim rounded-md border-8 border-dark shadow-xl"
       >
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 ">
           <div className="mx-auto max-w-lg">

@@ -7,12 +7,14 @@ from django.db.models import Q
 def load_books(user, page_number, list_type):
     books_per_page = 50
     book_ids = []
+    total_books = 0
     if list_type == "undesided":
         user_lists = UserList.objects.filter(user=user)
         for user_list in user_lists:
             book_ids.extend(user_list.books_on_all_lists())
         queryset = Book.objects.all().prefetch_related("publisher")
         queryset = queryset.exclude(id__in=book_ids)
+        total_books = len(queryset)
         paginator = Paginator(queryset, books_per_page)
 
     elif list_type == "want_to_read":
@@ -20,6 +22,7 @@ def load_books(user, page_number, list_type):
         for user_list in user_lists:
             book_ids.extend(user_list.want_to_read_ids())
         queryset = Book.objects.filter(id__in=book_ids).prefetch_related("publisher")
+        total_books = len(queryset)
         paginator = Paginator(queryset, books_per_page)
 
     elif list_type == "maybe_to_read":
@@ -27,6 +30,7 @@ def load_books(user, page_number, list_type):
         for user_list in user_lists:
             book_ids.extend(user_list.maybe_to_read_ids())
         queryset = Book.objects.filter(id__in=book_ids).prefetch_related("publisher")
+        total_books = len(queryset)
         paginator = Paginator(queryset, books_per_page)
 
     elif list_type == "not_to_read":
@@ -34,6 +38,7 @@ def load_books(user, page_number, list_type):
         for user_list in user_lists:
             book_ids.extend(user_list.wont_read_ids())
         queryset = Book.objects.filter(id__in=book_ids).prefetch_related("publisher")
+        total_books = len(queryset)
         paginator = Paginator(queryset, books_per_page)
 
     page = paginator.get_page(page_number)
@@ -53,9 +58,25 @@ def load_books(user, page_number, list_type):
         "has_previous_page": page.has_previous(),
         "current_page": page_number,
     }
-
     serialized_books = serializers.serialize(
         "json", books, use_natural_foreign_keys=True
     )
+    return {"books": serialized_books, "pages": pages, "total_nr": total_books}
 
-    return {"books": serialized_books, "pages": pages}
+
+def load_sample_books():
+    sample_book_ids = [1433, 1342, 1364, 990, 1479, 1249]
+    books = (
+        Book.objects.filter(id__in=sample_book_ids)
+        .prefetch_related("publisher")
+        .order_by("?")
+    )
+    serialized_books = serializers.serialize(
+        "json", books, use_natural_foreign_keys=True
+    )
+    return {"books": serialized_books}
+
+
+def load_publisher(publisher):
+    books = Book.objects.filter(publisher=publisher)
+    print("pub", books)

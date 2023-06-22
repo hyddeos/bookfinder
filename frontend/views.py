@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 # Own functions
 from frontend.assets.bookbeat_scraper import get_books
 from frontend.assets.load_from_db import load_books
+from frontend.assets.load_from_db import load_sample_books
 
 # Models
 from frontend.models import *
@@ -30,10 +31,11 @@ def index(request):
         books_data = load_books(user, page_number, list_type)
         pages = books_data["pages"]
         books = books_data["books"]
+        total_books = books_data["total_nr"]
         books = json.loads(books)
-
         context = {
             "books": books,
+            "total_books": total_books,
             "pages": pages,
         }
         serialized_data = json.dumps(context)
@@ -41,9 +43,10 @@ def index(request):
         return render(
             request, "frontend/index.html", {"serialized_data": serialized_data}
         )
-
-    else:
-        context = {}
+    else:  # I.E User NOT logged in, welcome screen
+        sample_books = load_sample_books()
+        sample_books = json.loads(sample_books["books"])
+        context = {"books": sample_books}
         serialized_data = json.dumps(context)
         return render(
             request, "frontend/index.html", {"serialized_data": serialized_data}
@@ -135,10 +138,12 @@ def readlist(request):
     books_data = load_books(user, page_number, list_type)
     pages = books_data["pages"]
     books = books_data["books"]
+    total_books = books_data["total_nr"]
     books = json.loads(books)
 
     context = {
         "books": books,
+        "total_books": total_books,
         "pages": pages,
     }
     serialized_data = json.dumps(context)
@@ -162,10 +167,12 @@ def maybelist(request):
     books_data = load_books(user, page_number, list_type)
     pages = books_data["pages"]
     books = books_data["books"]
+    total_books = books_data["total_nr"]
     books = json.loads(books)
 
     context = {
         "books": books,
+        "total_books": total_books,
         "pages": pages,
     }
     serialized_data = json.dumps(context)
@@ -189,10 +196,12 @@ def notlist(request):
     books_data = load_books(user, page_number, list_type)
     pages = books_data["pages"]
     books = books_data["books"]
+    total_books = books_data["total_nr"]
     books = json.loads(books)
 
     context = {
         "books": books,
+        "total_books": total_books,
         "pages": pages,
     }
     serialized_data = json.dumps(context)

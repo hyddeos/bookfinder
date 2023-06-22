@@ -56,8 +56,6 @@ export default function WelcomeUsps() {
       <p className="bg-dark text-light text-right pr-14 pb-10">
         *Only supports Bookbeat at the moment but more to come soon.
       </p>
-
-      <div className="bg-gradient-to-b from-dark h-48"></div>
     </>
   );
 }
