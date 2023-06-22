@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import ListBooks from "./components/ListBooks";
-import Welcome from "./components/Welcome";
+import WelcomePage from "./components/WelcomePage";
 
 const App = () => {
   const user = document.getElementById("app").getAttribute("user");
@@ -16,12 +16,12 @@ const App = () => {
 
   return (
     <div className="h-screen bg-light">
-      <div className="max-w-6xl m-auto">
+      <div className="max-w-6xl m-auto shadow-2xl">
         <Header user={user} error={error} />
         {user ? (
           <ListBooks bookData={bookData} user={user} listView={listView} />
         ) : (
-          <Welcome />
+          <WelcomePage />
         )}
       </div>
     </div>
