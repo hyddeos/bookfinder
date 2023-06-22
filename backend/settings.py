@@ -59,6 +59,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "backend.urls"
 AUTH_USER_MODEL = "frontend.User"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/static"),
+]
 
 
 TEMPLATES = [

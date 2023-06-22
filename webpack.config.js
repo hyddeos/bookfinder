@@ -17,26 +17,27 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: "babel-loader",
+        },
       },
-       {
+      {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader", "postcss-loader",
-          ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
-    ]
+      {
+        test: /\.svg$/,
+        use: ["svg-inline-loader"],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "styles.css",
-      chunkFilename: "styles.css"
+      chunkFilename: "styles.css",
     }),
-  //   new HtmlWebPackPlugin({
-  //   template: "./src/index.html",
-  //   filename: "./index.html"
-  // }),
-]
+    //   new HtmlWebPackPlugin({
+    //   template: "./src/index.html",
+    //   filename: "./index.html"
+    // }),
+  ],
 };
