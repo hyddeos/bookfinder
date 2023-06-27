@@ -55,6 +55,7 @@ def index(request):
 
 
 # Update the books from the book services
+@login_required
 def update_books(request):
     get_books()
     print("--UPDATE DONE--")
@@ -273,3 +274,7 @@ def browselist(request):
         return render(
             request, "frontend/index.html", {"serialized_data": serialized_data}
         )
+
+
+def handler404(request, exception):
+    return render(request, "404.html", status=404)

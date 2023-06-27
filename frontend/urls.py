@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from frontend.views import handler404
 
 urlpatterns = [
     path("", views.index),
@@ -12,3 +13,5 @@ urlpatterns = [
     path("notlist", views.notlist),
     path("browse", views.browselist),
 ]
+
+handler404 = "frontend.views.handler404"
