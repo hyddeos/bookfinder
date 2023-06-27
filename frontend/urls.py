@@ -10,4 +10,5 @@ urlpatterns = [
     path("readlist", views.readlist),
     path("maybelist", views.maybelist),
     path("notlist", views.notlist),
+    path("browse", views.browselist),
 ]

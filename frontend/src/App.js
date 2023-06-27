@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import ListBooks from "./components/ListBooks";
 import WelcomePage from "./components/WelcomePage";
+import Footer from "./components/Footer";
 
 const App = () => {
   const user = document.getElementById("app").getAttribute("user");
@@ -12,17 +13,23 @@ const App = () => {
   const rawBookData = document.getElementById("app").getAttribute("data");
   const bookData = JSON.parse(rawBookData);
   const listView = document.getElementById("app").getAttribute("list");
-  console.log("app", bookData);
+  const currentUrl = window.location.href;
 
   return (
-    <div className="h-screen bg-light">
+    <div className="container bg-light">
       <div className="max-w-6xl m-auto shadow-2xl">
         <Header user={user} error={error} />
-        {user ? (
-          <ListBooks bookData={bookData} user={user} listView={listView} />
-        ) : (
-          <WelcomePage bookData={bookData} />
-        )}
+        <div className="content">
+          {" "}
+          {user || currentUrl.includes("browse") ? ( // Check for user or browse URL
+            <ListBooks bookData={bookData} user={user} listView={listView} />
+          ) : (
+            <WelcomePage bookData={bookData} />
+          )}
+        </div>
+        <footer className="bg-gray-200 text-center">
+          <Footer />
+        </footer>
       </div>
     </div>
   );

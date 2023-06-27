@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from frontend.assets.bookbeat_scraper import get_books
 from frontend.assets.load_from_db import load_books
 from frontend.assets.load_from_db import load_sample_books
+from frontend.assets.load_from_db import load_filterd_books
 
 # Models
 from frontend.models import *
@@ -211,3 +212,64 @@ def notlist(request):
         "frontend/index.html",
         {"serialized_data": serialized_data, "list": "not"},
     )
+
+
+def browselist(request):
+    user = request.user
+    search_terms = dict()
+
+    page_number = request.GET.get("page")
+    if not page_number:
+        page_number = 1
+
+    publisher = request.GET.get("publisher")
+    if publisher:
+        include_publisher = []
+        include_publisher.append(publisher)
+        search_terms.update({"include_publisher": include_publisher})
+
+    if user.is_authenticated:
+        books_data = load_filterd_books(user, page_number, search_terms)
+        pages = books_data["pages"]
+        books = books_data["books"]
+        total_books = books_data["total_nr"]
+        books = json.loads(books)
+        context = {
+            "books": books,
+            "total_books": total_books,
+            "pages": pages,
+        }
+        serialized_data = json.dumps(context)
+
+        return render(
+            request, "frontend/index.html", {"serialized_data": serialized_data}
+        )
+    else:  # I.E User NOT logged in, welcome screen
+        user = None
+        search_terms = dict()
+
+        page_number = request.GET.get("page")
+        if not page_number:
+            page_number = 1
+
+        publisher = request.GET.get("publisher")
+        if publisher:
+            include_publisher = []
+            include_publisher.append(publisher)
+            search_terms.update({"include_publisher": include_publisher})
+
+        books_data = load_filterd_books(user, page_number, search_terms)
+        pages = books_data["pages"]
+        books = books_data["books"]
+        total_books = books_data["total_nr"]
+        books = json.loads(books)
+        context = {
+            "books": books,
+            "total_books": total_books,
+            "pages": pages,
+        }
+        serialized_data = json.dumps(context)
+
+        return render(
+            request, "frontend/index.html", {"serialized_data": serialized_data}
+        )

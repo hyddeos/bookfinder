@@ -53,6 +53,14 @@ export default function Header(props) {
               HOME
             </a>
           </div>
+          <div>
+            <a
+              href="/browse"
+              className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim mr-4 text-dark"
+            >
+              BROWSE
+            </a>
+          </div>
           <div className="relative">
             <button
               onClick={toggleDropdown}
@@ -78,7 +86,7 @@ export default function Header(props) {
                     MAYBE LIST
                   </a>
                 </div>
-                <div className="p-3">
+                <div>
                   <a
                     href="/notlist"
                     className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
@@ -89,7 +97,6 @@ export default function Header(props) {
               </div>
             )}
           </div>
-
           <div>
             <a
               href="/updatebooks"

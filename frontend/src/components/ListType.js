@@ -19,9 +19,12 @@ export default function ListType() {
       setTypeInfo(
         "Books on your Not-list won´t show up in other filtering such as publishers search"
       );
-      return "NOT LIST";
+    } else if (currentUrl.includes("browse")) {
+      setTypeHeader("BROWSE");
+      setTypeInfo("You are NOT logged in so your so your books won´t be saved");
     } else {
-      return "UNDECIDED LIST";
+      setTypeHeader("UNDECIDED-BOOKS");
+      setTypeInfo("Lets start searching for some gems");
     }
   }
 

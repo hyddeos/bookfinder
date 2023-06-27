@@ -30,7 +30,7 @@ export default function ListBooksSample(props) {
   }
 
   return (
-    <div className="h-screen bg-light">
+    <div className="content mb-7 bg-light">
       <div className="bg-gradient-to-b from-dark to-light h-18">
         <h3 className="text-prim font-header text-8xl text-center ">
           HERE´S HOW IT LOOKS

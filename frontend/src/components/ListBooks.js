@@ -80,7 +80,7 @@ export default function ListBooks(props) {
   }
 
   return (
-    <div className="h-screen bg-light">
+    <div className="content mb-7 bg-light">
       <div className="max-w-6xl mx-2">
         <ListType lists={props.lists} />
         <div className="flex justify-center">
@@ -113,7 +113,7 @@ export default function ListBooks(props) {
                     rel="noopener noreferrer"
                   >
                     <h2 className="font-header  text-dark">
-                      {book.fields.title}
+                      {book.fields.title} 🔗
                     </h2>
                   </a>
                 </div>
@@ -123,9 +123,11 @@ export default function ListBooks(props) {
                   </h2>
                 </div>
                 <div>
-                  <h2 className="font-ingress text-dark">
-                    {book.fields.publisher}
-                  </h2>
+                  <a href={`/browse?publisher=${book.fields.publisher}`}>
+                    <h2 className="font-ingress text-dark">
+                      🡆 {book.fields.publisher}
+                    </h2>
+                  </a>
                 </div>
                 <div>
                   <h2 className="font-ingress text-dark">
