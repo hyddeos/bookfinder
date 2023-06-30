@@ -610,6 +610,10 @@ video {
   position: relative;
 }
 
+.top-2{
+  top: 0.5rem;
+}
+
 .top-9{
   top: 2.25rem;
 }
@@ -620,6 +624,10 @@ video {
 
 .top-1\/4{
   top: 25%;
+}
+
+.right-8{
+  right: 2rem;
 }
 
 .-right-11{

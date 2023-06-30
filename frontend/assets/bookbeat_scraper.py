@@ -20,6 +20,8 @@ def urls_to_scape():
         # psykologi-61 # naturvetenskapn 66
         "https://www.bookbeat.se/api/discovery/search/categories?category=61&format=audiobook&id=psykologi-46061&language=Swedish&language=English&offset=0&sortBy=publishdate&sortOrder=desc",
         "https://www.bookbeat.se/api/discovery/search/categories?category=66&format=audiobook&id=naturvetenskap-46066&language=Swedish&language=english&offset=0&sortBy=publishdate&sortOrder=desc",
+        #"https://www.bookbeat.se/api/discovery/search/categories?category=68&format=audiobook&id=religion-och-filosofi-46068&language=Swedish&language=English&offset=0&sortBy=publishdate&sortOrder=asc",
+        # Add later when know how to filter better      
     ]
     return urls
 

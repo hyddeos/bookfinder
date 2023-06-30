@@ -225,6 +225,11 @@ export default function Header(props) {
         open={showLogin ? "open" : false}
         className="z-50 fixed top-1/4 bg-prim rounded-md border-8 border-dark shadow-xl"
       >
+        <div className="absolute top-2 right-8">
+          <button onClick={clickShowLogin} className="text-acc">
+            Close
+          </button>
+        </div>
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 ">
           <div className="mx-auto max-w-lg">
             <h1 className="text-center text-2xl font-bold text-dark font-header sm:text-3xl">
