@@ -5,7 +5,7 @@ import ListBooksSample from "./ListBooksSample";
 
 export default function WelcomePage(props) {
   return (
-    <div className=" block m-auto my-12">
+    <div className="block m-auto my-12">
       <WelcomeHero />
       <WelcomeUsps />
       <ListBooksSample bookData={props.bookData} />

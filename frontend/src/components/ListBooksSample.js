@@ -33,19 +33,20 @@ export default function ListBooksSample(props) {
     <div className="content mb-7 bg-light">
       <div className="bg-gradient-to-b from-dark to-light h-18">
         <h3 className="text-prim font-header text-8xl text-center ">
-          HERE´S HOW IT LOOKS
+          HERE´S HOW IT WORKS
         </h3>
-        <h5 className="text-left text-dark font-ingress font-bold text-center">
+        <h5 className="text-dark font-ingress font-bold text-center">
           Well, on these sample books, your preferences won't be saved, but at
-          least you will get an idea of how it will work.
+          least you will get an idea of how it will work. For the best experince
+          you should use a desktop device.
         </h5>
       </div>
       <div className="max-w-6xl mx-2 ">
         <div className="flex justify-center"></div>
         {props.bookData.books.map((book) => (
           <div key={book.pk} className="my-4 ">
-            <div className="flex max-h-60 border-t-4 border-l-4 border-r-4 border-acc rounded-t-xl bg-white overflow-hidden">
-              <div className="max-w-6xl object-scale-down bg-prim w-1/5">
+            <div className="flex h-56 md:max-h-60 border-t-4 border-l-4 border-r-4 border-acc rounded-t-xl bg-white overflow-hidden">
+              <div className="max-w-6xl object-scale-down bg-prim w-full md:w-1/5">
                 <a
                   href={book.fields.url}
                   target="_blank"
@@ -54,11 +55,11 @@ export default function ListBooksSample(props) {
                   <img
                     src={book.fields.cover}
                     alt="cover image for the book"
-                    className="object-scale-down h-56 p-2 "
+                    className="object-scale-down h-56 md:p-2 "
                   />
                 </a>
               </div>
-              <div className="w-1/5 p-3 bg-prim">
+              <div className="hidden md:block w-1/5 p-3 bg-prim">
                 <div className="pt-1">
                   <a
                     href={book.fields.url}
@@ -86,7 +87,7 @@ export default function ListBooksSample(props) {
                   </h2>
                 </div>
               </div>
-              <div className="w-7/12 p-3 text-clip overflow-y-auto">
+              <div className="w-full md:w-7/12 p-3 text-clip overflow-y-auto">
                 <p className="text-body">{book.fields.summary}</p>
               </div>
               <div className="flex flex-wrap w-1/12">

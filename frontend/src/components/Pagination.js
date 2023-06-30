@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
 
 export default function Pagination(props) {
-  console.log("pa", props);
-
   return (
-    <div className="flex">
+    <div className="flex w-full">
       {props.pages.has_previous_page && (
         <a href={`?page=${props.pages.previous_page_number}`}>
           <button
             className="inline-block h-8 w-24 text-sm leading-none
             bg-acc hover:bg-prim
             rounded text-white 
-            font-header mt-4 lg:mt-0"
+            font-header md:mt-4 lg:mt-0"
           >
             PREVIOUS
           </button>
         </a>
       )}
-      <p className="mx-5 mt-1 ">
+      <p className="mx-2 md:mx-5 md:mt-1 ">
         Page <span className="font-bold">{props.pages.current_page}</span> of{" "}
         <span className="font-bold">{props.pages.total_pages}</span> (
         <span className="font-bold">{props.total} </span>books)
@@ -28,7 +26,7 @@ export default function Pagination(props) {
             className="inline-block h-8 w-24 text-sm leading-none
             bg-acc hover:bg-prim
             rounded text-white  align
-            font-header mt-4 lg:mt-0"
+            font-header md:mt-4 lg:mt-0"
           >
             NEXT
           </button>

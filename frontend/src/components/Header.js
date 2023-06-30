@@ -4,9 +4,14 @@ export default function Header(props) {
   const [showLogin, setShowlogin] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   // If there is a log-in error, show the login screen.
@@ -29,9 +34,12 @@ export default function Header(props) {
   return (
     <nav className="py-4">
       <div className="block lg:hidden">
-        <button className="flex items-center px-3 py-2 rounded ">
+        <button
+          onClick={toggleMobileMenu}
+          className="absolute top-9 left-3 flex md:hidden items-center px-3 py-2 border-dark border rounded-lg h-12 w-12"
+        >
           <svg
-            className="fill-current h-3 w-3"
+            className="fill-current h-6 w-6"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -39,12 +47,91 @@ export default function Header(props) {
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </button>
+        {isMobileMenuOpen && (
+          <div className="origin-top-left absolute left-0 top-20 mt-4 w-full rounded-md shadow-lg bg-white ring-1 ring-dark ring-opacity-5 divide-y divide-dark">
+            <div className="p-6">
+              <a
+                href="/"
+                className="block font-header lg:inline-block lg:mt-0  hover:text-prim text-dark"
+              >
+                HOME
+              </a>
+            </div>
+            <div className="p-6">
+              <a
+                href="/readlist"
+                className="block font-header lg:inline-block lg:mt-0  hover:text-prim text-dark"
+              >
+                READ LIST
+              </a>
+            </div>
+            <div className="p-6">
+              <a
+                href="/maybelist"
+                className="block font-header lg:inline-block lg:mt-0  hover:text-prim text-dark"
+              >
+                MAYBE LIST
+              </a>
+            </div>
+            <div className="p-6">
+              <a
+                href="/notlist"
+                className="block font-header  lg:inline-block lg:mt-0  hover:text-prim text-dark"
+              >
+                NOT LIST
+              </a>
+            </div>
+            <div className="p-6">
+              <a
+                href="/updatebooks"
+                className="block font-header  lg:inline-block lg:mt-0  hover:text-prim text-dark"
+              >
+                UPDATE SERVICES
+              </a>
+            </div>
+            {props.user ? (
+              <div className="p-6 block">
+                <a href="/logout">
+                  <button
+                    className="inline-block text-sm px-4 py-2 leading-none
+                    border-2 border-acc
+                   hover:bg-acc hover:text-white
+                    rounded text-acc 
+                    font-header md:mt-4 lg:mt-0"
+                  >
+                    LOGOUT
+                  </button>
+                </a>
+              </div>
+            ) : (
+              <div className="p-6 block">
+                <button
+                  onClick={clickShowLogin}
+                  className="inline-block text-sm px-4 py-2 leading-none
+            bg-acc hover:bg-prim
+            rounded text-white 
+            font-header md:mt-4 lg:mt-0 "
+                >
+                  LOGIN
+                </button>
+              </div>
+            )}
+            <div className="p-6">
+              <p
+                onClick={toggleMobileMenu}
+                className="block font-header  lg:inline-block lg:mt-0 text-acc hover:text-prim  "
+              >
+                Close Menu
+              </p>
+            </div>
+          </div>
+        )}
       </div>
       <div className="w-full m-auto flex justify-around flex-grow lg:flex lg:items-center mt-2 lg:w-auto ">
-        <div className="flex items-center flex-shrink-0 w-40 pl-3 pb-3">
+        <div className="flex items-center flex-shrink-0 w-64 pl-3 md:pb-3">
           <img src="https://svgshare.com/i/uZ0.svg" alt="bookfinder logo" />
         </div>
-        <div className="w-2/4 text-center flex justify-around mx-2 lg:flex-grow">
+        <div className="w-2/4 text-center md:flex justify-around mx-2 lg:flex-grow hidden">
           <div>
             <a
               href="/"
@@ -86,7 +173,7 @@ export default function Header(props) {
                     MAYBE LIST
                   </a>
                 </div>
-                <div>
+                <div className="p-3">
                   <a
                     href="/notlist"
                     className="block font-header mt-4 lg:inline-block lg:mt-0  hover:text-prim text-dark"
@@ -107,7 +194,7 @@ export default function Header(props) {
           </div>
         </div>
         {props.user ? (
-          <div className="pr-3">
+          <div className="pr-3 md:block hidden">
             <a href="/logout">
               <button
                 className="inline-block text-sm px-4 py-2 leading-none
@@ -121,7 +208,7 @@ export default function Header(props) {
             </a>
           </div>
         ) : (
-          <div className="pr-3">
+          <div className="pr-3 md:block hidden">
             <button
               onClick={clickShowLogin}
               className="inline-block text-sm px-4 py-2 leading-none

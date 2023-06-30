@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 export default function WelcomeUsps() {
   return (
     <>
-      <div className="flex bg-dark">
-        <div className="w-1/2">
+      <div className="flex flex-wrap bg-dark">
+        <div className="w-full md:w-1/2">
           <div>
             <h3 className="font-header  text-6xl text-prim mt-16 mb-6 ml-8">
               What? How? Why?
@@ -49,7 +49,7 @@ export default function WelcomeUsps() {
             </div>
           </div>
         </div>
-        <div className="w-1/2 ">
+        <div className="w-2/3 md:w-1/2 m-auto">
           <img src="https://svgshare.com/i/uZr.svg" alt="knowledge img" />
         </div>
       </div>

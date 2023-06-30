@@ -91,8 +91,8 @@ export default function ListBooks(props) {
         </div>
         {props.bookData.books.map((book) => (
           <div key={book.pk} className="my-4 ">
-            <div className="flex max-h-60 border-t-4 border-l-4 border-r-4 border-acc rounded-t-xl bg-white overflow-hidden">
-              <div className="max-w-6xl object-scale-down bg-prim w-1/5">
+            <div className="flex h-56 md:max-h-60 border-t-4 border-l-4 border-r-4 border-acc rounded-t-xl bg-white overflow-hidden">
+              <div className="max-w-6xl object-scale-down bg-prim w-full md:w-1/5">
                 <a
                   href={book.fields.url}
                   target="_blank"
@@ -101,11 +101,11 @@ export default function ListBooks(props) {
                   <img
                     src={book.fields.cover}
                     alt="cover image for the book"
-                    className="object-scale-down h-56 p-2 "
+                    className="object-scale-down h-56 md:p-2 "
                   />
                 </a>
               </div>
-              <div className="w-1/5 p-3 bg-prim">
+              <div className="hidden md:block w-1/5 p-3 bg-prim">
                 <div className="pt-1">
                   <a
                     href={book.fields.url}
@@ -113,7 +113,7 @@ export default function ListBooks(props) {
                     rel="noopener noreferrer"
                   >
                     <h2 className="font-header  text-dark">
-                      {book.fields.title} 🔗
+                      {book.fields.title}
                     </h2>
                   </a>
                 </div>
@@ -123,11 +123,9 @@ export default function ListBooks(props) {
                   </h2>
                 </div>
                 <div>
-                  <a href={`/browse?publisher=${book.fields.publisher}`}>
-                    <h2 className="font-ingress text-dark">
-                      🡆 {book.fields.publisher}
-                    </h2>
-                  </a>
+                  <h2 className="font-ingress text-dark">
+                    {book.fields.publisher}
+                  </h2>
                 </div>
                 <div>
                   <h2 className="font-ingress text-dark">
@@ -135,7 +133,7 @@ export default function ListBooks(props) {
                   </h2>
                 </div>
               </div>
-              <div className="w-7/12 p-3 text-clip overflow-y-auto">
+              <div className="w-full md:w-7/12 p-3 text-clip overflow-y-auto">
                 <p className="text-body">{book.fields.summary}</p>
               </div>
               <div className="flex flex-wrap w-1/12">

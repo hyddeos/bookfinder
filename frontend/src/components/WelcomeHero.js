@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 export default function WelcomeHero(props) {
   return (
-    <div className="flex justify-center">
-      <div className="w-2/3  bg-prim py-4">
+    <div className="flex flex-wrap justify-center">
+      <div className="w-full md:w-2/3 bg-prim py-4">
         <h2 className="font-header text-left text-dark text-3xl px-4  ">
           WELCOME <span className="text-succes italic">YOU</span>
         </h2>
@@ -11,15 +11,15 @@ export default function WelcomeHero(props) {
           <span className="">LOVER </span>
           <span className="font-ingress italic text-4xl">of</span>
         </h3>
-        <h3 className="font-header text-dark text-8xl text-center px-4">
+        <h3 className="font-header text-dark text-5xl md:text-8xl text-left md:text-center px-4">
           <span className="text-acc">KNOWLEDGE</span>
         </h3>
-        <h3 className="font-header text-dark text-8xl text-right px-4">
+        <h3 className="font-header text-dark text-6xl md:text-8xl text-left md:text-right px-4">
           <span className="font-ingress italic text-4xl">and </span>
           <span> CURIOSITY </span>
         </h3>
-        <div className="flex">
-          <div className="text-dark w-1/2">
+        <div className="block md:flex">
+          <div className="text-dark w-full md:w-1/2">
             <h5 className="text-2xl font-header mt-4 mx-4  px-3 border-acc border-l-4">
               This is for you who...
             </h5>
@@ -41,7 +41,7 @@ export default function WelcomeHero(props) {
               intrinsic worth.
             </p>
           </div>
-          <div className="text-dark w-1/2">
+          <div className="text-dark w-full md:w-1/2">
             <img src="https://svgshare.com/i/uZ2.svg" alt="book" />
             <p className="font-body text-base mx-4 px-4">
               Our mission is to you uncover these hidden gems. For instance, out
@@ -61,7 +61,7 @@ export default function WelcomeHero(props) {
           </div>
         </div>
       </div>
-      <div className="w-1/3  bg-acc">
+      <div className="w-full md:w-1/3 pb-10  bg-acc">
         <div className="mt-12">
           <img src="https://svgshare.com/i/uZp.svg" alt="bookfinder logo" />
           <h4 className="font-ingress text-xl italic tracking-wide text-light text-center px-2">

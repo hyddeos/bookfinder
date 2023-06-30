@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <div className="container bg-light">
-      <div className="max-w-6xl m-auto shadow-2xl">
+      <div className="w-full md:max-w-6xl m-auto shadow-2xl">
         <Header user={user} error={error} />
         <div className="content">
           {" "}
