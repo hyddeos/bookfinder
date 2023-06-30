@@ -140,3 +140,28 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_ORIGIN_WHITELIST = [
+        os.environ.get("DJANGO_CORS_ORIGIN_WHITELIST")
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+        os.environ.get("DJANGO_CORS_ALLOWED_ORIGIN_REGEXES")    
+        ]
+
+CSRF_TRUSTED_ORIGINS = [
+    os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS")
+    ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_HEADERS = [
+        'accept',
+        'accept-encoding',
+        'authorization',
+        'content-type',
+        'dnt',
+        'origin',
+        'user-agent',
+        'x-csrftoken',
+        'x-requested-with',
+]
