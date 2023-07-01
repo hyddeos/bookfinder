@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # Copy all files and directories from the current directory to /app
-COPY * /app
+COPY * /app/
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -16,6 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install Node.js and NPM
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
+
 
 # Print a message
 RUN echo "NPM STARTING..."
@@ -25,6 +26,9 @@ RUN npm install
 
 # Print a message
 RUN echo "NPM INSTALL DONE, RUN BUILD START"
+
+# Print the contents of the current directory
+RUN ls -al
 
 # Build the React frontend
 RUN npm run build
