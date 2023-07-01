@@ -7,13 +7,6 @@ ENV PYTHONUNBUFFERED 1
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package.json .
-COPY package-lock.json .
-
-# Copy webpack.config.js
-COPY webpack.config.js .
-
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
