@@ -1,5 +1,4 @@
 const path = require("path");
-// const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
@@ -10,6 +9,11 @@ module.exports = {
   },
   stats: {
     errorDetails: true,
+  },
+  resolve: {
+    alias: {
+      browser: false,
+    },
   },
   module: {
     rules: [
@@ -35,9 +39,5 @@ module.exports = {
       filename: "styles.css",
       chunkFilename: "styles.css",
     }),
-    //   new HtmlWebPackPlugin({
-    //   template: "./src/index.html",
-    //   filename: "./index.html"
-    // }),
   ],
 };
