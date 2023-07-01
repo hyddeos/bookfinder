@@ -19,6 +19,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 
+# Set working directory for the frontend
+WORKDIR /app/frontend
 
 
 # Install frontend dependencies
@@ -29,9 +31,6 @@ RUN npm run build
 
 # Move the built frontend to the Django static files directory
 RUN mv build /app/static
-
-# Set working directory for the frontend
-WORKDIR /app/frontend
 
 # Return to the main working directory
 WORKDIR /app
