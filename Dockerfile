@@ -20,9 +20,11 @@ COPY . .
 RUN apt-get update && apt-get install -y curl gnupg && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs
+RUN apt-get update && apt-get install -y curl gnupg && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs
 
 # install react app dependencies
-WORKDIR /app/frontend/
 COPY .package*.json ./
 RUN npm install
 
