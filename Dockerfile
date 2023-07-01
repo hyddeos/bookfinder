@@ -26,9 +26,6 @@ RUN npm install
 # Print a message
 RUN echo "NPM INSTALL DONE, RUN BUILD START"
 
-# Copy all files and directories from the current directory to /app
-COPY * /app/
-
 # Print the contents of the current directory
 RUN ls -al
 
