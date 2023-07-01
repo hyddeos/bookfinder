@@ -7,8 +7,12 @@ ENV PYTHONUNBUFFERED 1
 # Set working directory
 WORKDIR /app
 
-# Copy all files and directories from the current directory to /app
-COPY * /app/
+# Copy package.json and package-lock.json
+COPY package.json .
+COPY package-lock.json .
+
+# Copy webpack.config.js
+COPY webpack.config.js .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -16,7 +20,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install Node.js and NPM
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
-
 
 # Print a message
 RUN echo "NPM STARTING..."
@@ -26,6 +29,9 @@ RUN npm install
 
 # Print a message
 RUN echo "NPM INSTALL DONE, RUN BUILD START"
+
+# Copy all files and directories from the current directory to /app
+COPY * /app/
 
 # Print the contents of the current directory
 RUN ls -al
