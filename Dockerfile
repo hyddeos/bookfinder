@@ -1,42 +1,34 @@
-# Base image
-FROM python:3.11.0
+# pull official base image
+FROM python:3.11
 
-# Set environment variables
-ENV PYTHONUNBUFFERED 1
-
-# Set working directory
+# set work directory
 WORKDIR /app
 
-# Copy all files and directories from the current directory to /app
-COPY * /app/
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# install dependencies
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
-# Install Node.js and NPM
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs
+# copy project
+COPY . .
 
-# Print a message
-RUN echo "NPM STARTING..."
+# install nodejs and npm
+RUN apt-get update && apt-get install -y curl gnupg && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs
 
-# Install frontend dependencies
+# install react app dependencies
+WORKDIR /app/frontend/
+COPY .package*.json ./
 RUN npm install
 
-# Print a message
-RUN echo "NPM INSTALL DONE, RUN BUILD START"
-
-# Print the contents of the current directory
-RUN ls -al
-
-# Build the React frontend
+# build react app
 RUN npm run build
 
-# Print a message
-RUN echo "BUILD DONE, EXPOSES PORT"
-
-# Expose the port for Django
-EXPOSE 8000
-
-# Run Django development server
-CMD python manage.py runserver 0.0.0.0:8000
+# run entrypoint.sh
+WORKDIR /app/
+ENTRYPOINT ["/app/entrypoint.sh"]
