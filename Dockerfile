@@ -20,7 +20,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 
 # Change to the frontend directory
-WORKDIR /app/frontend
+WORKDIR /app
 
 # Install frontend dependencies
 RUN npm install
