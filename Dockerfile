@@ -36,7 +36,7 @@ COPY backend /app/backend
 RUN npm run build
 
 # Move the built frontend to the Django static files directory
-RUN mv build /app/static
+# RUN mv build /app/static
 
 # Expose the port for Django
 EXPOSE 8000
