@@ -39,9 +39,6 @@ COPY staticfiles /app/staticfiles
 # Build the React frontend
 RUN npm run build
 
-# Move the built frontend to the Django static files directory
-RUN mv frontend/static/frontend /app/staticfiles/
-
 # Expose the port for Django
 EXPOSE 8000
 
