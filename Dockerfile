@@ -1,33 +1,38 @@
-# pull official base image
-FROM python:3.11
+# Base image
+FROM python:3.11.0
 
-# set work directory
-WORKDIR /app
-
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
+# Set environment variables
 ENV PYTHONUNBUFFERED 1
 
-# install dependencies
-RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+# Set working directory
+WORKDIR /app
 
-# copy project
-COPY . .
+# Copy requirements files
+COPY requirements.txt .
+COPY package.json .
+COPY package-lock.json .
 
-# install nodejs and npm
-RUN apt-get update && apt-get install -y curl gnupg && \
-    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get update && apt-get install -y nodejs npm
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# install react app dependencies
-COPY .package*.json ./
+# Install Node.js and NPM
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
+
+# Install frontend dependencies
 RUN npm install
 
-# build react app
+#add frontend files
+COPY frontend /app/frontend
+
+# Build the React frontend
 RUN npm run build
 
-# run entrypoint.sh
-WORKDIR /app/
-ENTRYPOINT ["/app/entrypoint.sh"]
+# Move the built frontend to the Django static files directory
+RUN mv build /app/static
+
+# Expose the port for Django
+EXPOSE 8000
+
+# Run Django development server
+CMD python manage.py runserver 0.0.0.0:8000
