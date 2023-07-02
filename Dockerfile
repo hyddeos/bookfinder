@@ -11,6 +11,7 @@ WORKDIR /app
 COPY requirements.txt .
 COPY package.json .
 COPY package-lock.json .
+COPY webpack.config.js .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
