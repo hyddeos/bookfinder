@@ -14,6 +14,7 @@ COPY package-lock.json .
 COPY webpack.config.js .
 COPY tailwind.config.js .
 COPY postcss.config.js .
+COPY .babelrc .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
