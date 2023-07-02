@@ -45,5 +45,5 @@ RUN npm run build
 # Expose the port for Django
 EXPOSE 8000
 
-# Run Django development server
-CMD python manage.py runserver 0.0.0.0:8000
+# Make migrations for DB and run the Django development server
+CMD python manage.py makemigrations && python manage.py runserver 0.0.0.0:8000
