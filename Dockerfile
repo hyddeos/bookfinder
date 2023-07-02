@@ -15,6 +15,7 @@ COPY webpack.config.js .
 COPY tailwind.config.js .
 COPY postcss.config.js .
 COPY .babelrc .
+COPY manage.py .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -31,6 +32,9 @@ COPY frontend /app/frontend
 
 #add frontend files
 COPY backend /app/backend
+
+#add frontend files
+COPY staticfiles /app/staticfiles
 
 # Build the React frontend
 RUN npm run build
